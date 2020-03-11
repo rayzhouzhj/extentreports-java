@@ -84,12 +84,6 @@ public class TestAndNodeAttributesTest extends Base {
     }
     
     @Test
-    public void validatesNodeNameView() {
-        String nodeName = htmlNode.first().select(".node-name").first().html();
-        Assert.assertEquals(test.getModel().getNodeContext().get(0).getName(), nodeName);
-    }
-    
-    @Test
     public void validatesTestLogSizeView() {
         Elements log = htmlTest.select(".test-content > .test-steps .log");
         int logSize = log.size();
