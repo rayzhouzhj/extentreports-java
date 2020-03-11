@@ -93,7 +93,7 @@ abstract class Report implements IReport {
                 .stream()
                 .filter(n -> n.getID() == test.getID())
                 .collect(Collectors.toList());
-            
+
             if (testList.size() == 1) {
                 t.getNodeContext().getAll().remove(testList.get(0));
                 renewStatusCollection();
@@ -101,7 +101,7 @@ abstract class Report implements IReport {
             }
         }
     }
-    
+
     private void renewStatusCollection() {
     	List<BasicFileReporter> collection = reporterCollection
 	        	.stream()
@@ -109,6 +109,18 @@ abstract class Report implements IReport {
 	        	.map(x -> (BasicFileReporter)x)
 	        	.collect(Collectors.toList());
         collection.forEach(x -> x.refreshStatusCollection(testCollection, true));
+
+        // Update test collection status from child tests
+        testCollection.forEach(x -> {
+            if (x.hasChildren()) {
+                boolean isFailed = x.getNodeContext().getAll().stream().anyMatch(node -> node.getStatus() == Status.FAIL);
+                if(isFailed) {
+                    x.setStatus(Status.FAIL);
+                } else {
+                    x.setStatus(Status.PASS);
+                }
+            }
+        });
     }
         
     synchronized void addNode(Test node) {
