@@ -116,6 +116,47 @@
  			${ config.getValue('scripts') }
 			</#if>
  		</script>
+
+
+ 		<script type='text/javascript'>
+             /* -- [ Override category-toggle in extent.js ] -- */
+             $(document).on('click', '#category-toggle li a', function() {
+                 var t = $(this),
+                     name = t.text(),
+                     clear = t.attr('clear');
+
+                 if (clear === 'true') {
+                     $('.test').addClass('displayed').removeClass('hide');
+                     $('.node').addClass('displayed').removeClass('hide');
+                 }
+                 else {
+                     $('.test').removeClass('displayed').addClass('hide').filter(function() {
+                         return ($(this).find('.category').text().indexOf(name) >= 0)
+                     }).addClass('displayed').removeClass('hide');
+
+                     $('.node').removeClass('displayed').addClass('hide').filter(function() {
+                         return ($(this).find('.category').text().indexOf(name) >= 0)
+                     }).addClass('displayed').removeClass('hide');
+                  }
+
+                 $('.test.displayed').first().click();
+             });
+
+            /* -- [ handle event for click on category label ] -- */
+            $(document).on('click', '.node .category', function() {
+              var t = $(this),
+                  name = t.text();
+
+              $('.test').removeClass('displayed').addClass('hide').filter(function() {
+                  return ($(this).find('.category').text().indexOf(name) >= 0)
+              }).addClass('displayed').removeClass('hide');
+
+              $('.node').removeClass('displayed').addClass('hide').filter(function() {
+                  return ($(this).find('.category').text().indexOf(name) >= 0)
+              }).addClass('displayed').removeClass('hide');
+
+            });
+         </script>
 	</body>
 	
 </html>
