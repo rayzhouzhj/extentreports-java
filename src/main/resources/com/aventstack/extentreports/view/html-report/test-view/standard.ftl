@@ -72,7 +72,7 @@
 						<span class='test-status right ${ node.status }'>${ node.status }</span>
 						<#if node.hasCategory()>
 							<#list node.categoryContext.all as category>
-								<span class='category label grey white-text'>${ category.name }</span>
+								<span class='category hide label grey white-text'>${ category.name }</span>
 							</#list>
 						</#if>
 						<#if node.description?? && node.description?has_content>
