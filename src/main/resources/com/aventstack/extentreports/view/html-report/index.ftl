@@ -120,14 +120,22 @@
 
  		<script type='text/javascript'>
              /* -- [ Override category-toggle in extent.js ] -- */
-             $(document).on('click', '#category-toggle li a', function() {
+             $(document).on('click', '#category-toggle li span', function() {
                  var t = $(this),
                      name = t.text(),
-                     clear = t.attr('clear');
+                     action = t.attr('action');
 
-                 if (clear === 'true') {
+                 if (action === 'clear') {
                      $('.test').addClass('displayed').removeClass('hide');
                      $('.node').addClass('displayed').removeClass('hide');
+                 } else if (action === 'hide') {
+                     $('.node .category').removeClass('displayed').addClass('hide');
+                     t.attr('action', 'show');
+                     t.html('Show Categories');
+                 } else if (action === 'show') {
+                     $('.node .category').removeClass('hide').addClass('displayed');
+                     t.attr('action', 'hide');
+                     t.html('Hide Categories');
                  }
                  else {
                      $('.test').removeClass('displayed').addClass('hide').filter(function() {
