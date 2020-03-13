@@ -70,14 +70,17 @@
 						<span class="node-time label grey lighten-1 white-text">${ node.endTime?datetime?string["${timeStampFormat}"] }</span>
 						<span class='node-duration label grey lighten-1 white-text'>${ node.runDuration }</span>
 						<span class='test-status right ${ node.status }'>${ node.status }</span>
-						<#if node.hasCategory()>
-							<#list node.categoryContext.all as category>
-								<span class='category hide label grey white-text'>${ category.name }</span>
-							</#list>
-						</#if>
 						<#if node.description?? && node.description?has_content>
 							<div class='node-desc'>${ node.description}</div>
 						</#if>
+						<#if node.hasCategory()>
+                            <div class='category-list'>
+                                <#list node.categoryContext.all as category>
+                                    <#if node.hasCategory()>
+                                    <span class='category label white-text'>${ category.name }</span>
+                                </#list>
+                            </div>
+                        </#if>
 					</div>
 					<#if node.hasLog()>
 						<div class='collapsible-body'>

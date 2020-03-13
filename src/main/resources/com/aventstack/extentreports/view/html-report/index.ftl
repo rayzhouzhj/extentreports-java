@@ -129,11 +129,11 @@
                      $('.test').addClass('displayed').removeClass('hide');
                      $('.node').addClass('displayed').removeClass('hide');
                  } else if (action === 'hide') {
-                     $('.node .category').removeClass('displayed').addClass('hide');
+                     $('.category').removeClass('displayed').addClass('hide');
                      t.attr('action', 'show');
                      t.html('Show Categories');
                  } else if (action === 'show') {
-                     $('.node .category').removeClass('hide').addClass('displayed');
+                     $('.category').removeClass('hide').addClass('displayed');
                      t.attr('action', 'hide');
                      t.html('Hide Categories');
                  }
@@ -151,7 +151,7 @@
              });
 
             /* -- [ handle event for click on category label ] -- */
-            $(document).on('click', '.node .category', function() {
+            $(document).on('click', '.category-list > .category', function() {
               var t = $(this),
                   name = t.text();
 
