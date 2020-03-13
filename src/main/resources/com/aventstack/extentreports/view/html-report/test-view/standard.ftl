@@ -59,26 +59,27 @@
 				<#assign leaf=(node.hasChildren())?then('','leaf')>
 				<li class='node level-${ node.level } ${ leaf } ${ node.status }' status='${ node.status }' test-id='${ node.getID() }'>
 					<div class='collapsible-header'>
-						<h5 class='node-name'>
-						    ${ node.name }&nbsp;
-						    <#if node.hasAuthor()>
-                                <#list node.authorContext.all as author>
-                                    <span class='author label grey lighten-1 white-text'>${ author.name }</span>
-                                </#list>
-                            </#if>
-                        </h5>
-						<span class="node-time label grey lighten-1 white-text">${ node.endTime?datetime?string["${timeStampFormat}"] }</span>
-						<span class='node-duration label grey lighten-1 white-text'>${ node.runDuration }</span>
-						<span class='test-status right ${ node.status }'>${ node.status }</span>
-						<#if node.description?? && node.description?has_content>
-							<div class='node-desc'>${ node.description}</div>
-						</#if>
-						<#if node.hasCategory()>
-                            <div class='category-list'>
-                                <#list node.categoryContext.all as category>
-                                    <span class='category label white-text'>${ category.name }</span>
-                                </#list>
+					    <div style='display: flex; margin-bottom: 10px'>
+                            <div class='node-name' style='font-size:1vw;'>
+                                ${ node.name }
                             </div>
+                            <div class='test-status right ${ node.status }' style='margin-right: 5px; font-size:1vw'>${ node.status }</div>
+                        </div>
+                        <div style='display: flex;padding-bottom: 5px'>
+                            <div>
+                                <span class="node-time label grey lighten-1 white-text">${ node.endTime?datetime?string["${timeStampFormat}"] }</span>
+                                <span class='node-duration label grey lighten-1 white-text'>${ node.runDuration }</span>
+                            </div>
+                            <#if node.hasCategory()>
+                                <div class='category-list' style='margin-left: auto;'>
+                                    <#list node.categoryContext.all as category>
+                                        <span class='category right label white-text'>${ category.name }</span>
+                                    </#list>
+                                </div>
+                            </#if>
+						</div>
+						<#if node.description?? && node.description?has_content>
+                            <div class='node-desc'>${ node.description}</div>
                         </#if>
 					</div>
 					<#if node.hasLog()>
