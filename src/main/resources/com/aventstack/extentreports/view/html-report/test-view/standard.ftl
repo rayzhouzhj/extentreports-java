@@ -76,7 +76,6 @@
 						<#if node.hasCategory()>
                             <div class='category-list'>
                                 <#list node.categoryContext.all as category>
-                                    <#if node.hasCategory()>
                                     <span class='category label white-text'>${ category.name }</span>
                                 </#list>
                             </div>
