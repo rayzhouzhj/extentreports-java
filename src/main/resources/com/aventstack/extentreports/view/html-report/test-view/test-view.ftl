@@ -39,11 +39,12 @@
 					<i class='material-icons'>local_offer</i> Category
 				</a>
 				<ul id='category-toggle' class='dropdown-content'>
+				    <li class='filter-action'><span action='hide'>Hide Category</span></li>
+				    <li class='filter-action'><span href='#!' action='clear' clear='true'>Clear Filters</span></li>
+				    <li class='divider'></li>
 					<#list categoryContext as category>
-					<li><a href='#'>${ category.getName() }</a></li>
+					<li><span>${ category.getName() }</span></li>
 					</#list>
-					<li class='divider'></li>
-					<li class='clear'><a href='#!' clear='true'>Clear Filters</a></li>
 				</ul>
 			</div>
 			</#if>

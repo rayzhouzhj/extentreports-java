@@ -59,25 +59,28 @@
 				<#assign leaf=(node.hasChildren())?then('','leaf')>
 				<li class='node level-${ node.level } ${ leaf } ${ node.status }' status='${ node.status }' test-id='${ node.getID() }'>
 					<div class='collapsible-header'>
-						<h5 class='node-name'>
-						    ${ node.name }&nbsp;
-						    <#if node.hasAuthor()>
-                                <#list node.authorContext.all as author>
-                                    <span class='author label grey lighten-1 white-text'>${ author.name }</span>
-                                </#list>
+					    <div class='test-method-box'>
+                            <div class='node-name test-method-name'>
+                                ${ node.name }
+                            </div>
+                            <div class='test-status right ${ node.status } test-status-override'>${ node.status }</div>
+                        </div>
+                        <div class='test-method-detail-box'>
+                            <div>
+                                <span class="node-time label grey lighten-1 white-text">${ node.endTime?datetime?string["${timeStampFormat}"] }</span>
+                                <span class='node-duration label grey lighten-1 white-text'>${ node.runDuration }</span>
+                            </div>
+                            <#if node.hasCategory()>
+                                <div class='category-list category-list-override'>
+                                    <#list node.categoryContext.all as category>
+                                        <span class='category right label white-text'>${ category.name }</span>
+                                    </#list>
+                                </div>
                             </#if>
-                        </h5>
-						<span class="node-time label grey lighten-1 white-text">${ node.endTime?datetime?string["${timeStampFormat}"] }</span>
-						<span class='node-duration label grey lighten-1 white-text'>${ node.runDuration }</span>
-						<span class='test-status right ${ node.status }'>${ node.status }</span>
-						<#if node.hasCategory()>
-							<#list node.categoryContext.all as category>
-								<span class='category label grey white-text'>${ category.name }</span>
-							</#list>
-						</#if>
+						</div>
 						<#if node.description?? && node.description?has_content>
-							<div class='node-desc'>${ node.description}</div>
-						</#if>
+                            <div class='node-desc'>${ node.description}</div>
+                        </#if>
 					</div>
 					<#if node.hasLog()>
 						<div class='collapsible-body'>
@@ -130,3 +133,33 @@
 		<@recurse_nodes nodeList=test.nodeContext.all />
 	</ul>
 </#if>
+
+<style>
+ .test-method-box {
+	display: flex; 
+	padding-bottom: 10px
+ }
+
+ .test-method-detail-box {
+	display: flex;
+ }
+
+ .test-method-name {
+    font-size:25px;
+	width: fit-content !important;
+ }
+
+ .test-status-override {
+	margin-right: 5px; 
+	font-size:25px;
+	margin-left: auto;
+ }
+
+ .category-list-override {
+	 margin-left: auto;
+ }
+
+ .node-desc-override {
+	 padding-top: 10px
+ }
+</style>

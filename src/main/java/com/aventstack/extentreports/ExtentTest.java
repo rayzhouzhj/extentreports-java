@@ -1061,10 +1061,14 @@ Log evt = createLog(status, details);
      */
     public ExtentTest assignCategory(String... category) {
     	Arrays.stream(category).filter(StringUtil::isNotNullOrEmpty).forEach(c -> {
-    		Category objCategory = new Category(c.replace(" ", ""));
-	        test.setCategory(objCategory);
-	        
-	        extent.assignCategory(test, objCategory);
+
+    	    // Check if category already added
+    	    if(!test.getCategoryContext().getAll().stream().anyMatch(item -> item.getName().equals(c))) {
+                Category objCategory = new Category(c.replace(" ", ""));
+                test.setCategory(objCategory);
+
+                extent.assignCategory(test, objCategory);
+            }
     	});
 
         return this;

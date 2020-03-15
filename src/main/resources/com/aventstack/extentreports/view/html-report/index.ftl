@@ -116,6 +116,55 @@
  			${ config.getValue('scripts') }
 			</#if>
  		</script>
+
+
+ 		<script type='text/javascript'>
+             /* -- [ Override category-toggle in extent.js ] -- */
+             $(document).on('click', '#category-toggle li span', function() {
+                 var t = $(this),
+                     name = t.text(),
+                     action = t.attr('action');
+
+                 if (action === 'clear') {
+                     $('.test').addClass('displayed').removeClass('hide');
+                     $('.node').addClass('displayed').removeClass('hide');
+                 } else if (action === 'hide') {
+                     $('.category').removeClass('displayed').addClass('hide');
+                     t.attr('action', 'show');
+                     t.html('Show Categories');
+                 } else if (action === 'show') {
+                     $('.category').removeClass('hide').addClass('displayed');
+                     t.attr('action', 'hide');
+                     t.html('Hide Categories');
+                 }
+                 else {
+                     $('.test').removeClass('displayed').addClass('hide').filter(function() {
+                         return ($(this).find('.category').text().indexOf(name) >= 0)
+                     }).addClass('displayed').removeClass('hide');
+
+                     $('.node').removeClass('displayed').addClass('hide').filter(function() {
+                         return ($(this).find('.category').text().indexOf(name) >= 0)
+                     }).addClass('displayed').removeClass('hide');
+                  }
+
+                 $('.test.displayed').first().click();
+             });
+
+            /* -- [ handle event for click on category label ] -- */
+            $(document).on('click', '.category-list > .category', function() {
+              var t = $(this),
+                  name = t.text();
+
+              $('.test').removeClass('displayed').addClass('hide').filter(function() {
+                  return ($(this).find('.category').text().indexOf(name) >= 0)
+              }).addClass('displayed').removeClass('hide');
+
+              $('.node').removeClass('displayed').addClass('hide').filter(function() {
+                  return ($(this).find('.category').text().indexOf(name) >= 0)
+              }).addClass('displayed').removeClass('hide');
+
+            });
+         </script>
 	</body>
 	
 </html>
