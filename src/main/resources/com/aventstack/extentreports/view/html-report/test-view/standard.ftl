@@ -59,19 +59,19 @@
 				<#assign leaf=(node.hasChildren())?then('','leaf')>
 				<li class='node level-${ node.level } ${ leaf } ${ node.status }' status='${ node.status }' test-id='${ node.getID() }'>
 					<div class='collapsible-header'>
-					    <div style='display: flex; margin-bottom: 10px'>
-                            <div class='node-name' style='font-size:1vw;'>
+					    <div class='test-method-box'>
+                            <div class='node-name test-method-name'>
                                 ${ node.name }
                             </div>
-                            <div class='test-status right ${ node.status }' style='margin-right: 5px; font-size:1vw'>${ node.status }</div>
+                            <div class='test-status right ${ node.status } test-status-override'>${ node.status }</div>
                         </div>
-                        <div style='display: flex;padding-bottom: 5px'>
+                        <div class='test-method-detail-box'>
                             <div>
                                 <span class="node-time label grey lighten-1 white-text">${ node.endTime?datetime?string["${timeStampFormat}"] }</span>
                                 <span class='node-duration label grey lighten-1 white-text'>${ node.runDuration }</span>
                             </div>
                             <#if node.hasCategory()>
-                                <div class='category-list' style='margin-left: auto;'>
+                                <div class='category-list category-list-override'>
                                     <#list node.categoryContext.all as category>
                                         <span class='category right label white-text'>${ category.name }</span>
                                     </#list>
@@ -133,3 +133,33 @@
 		<@recurse_nodes nodeList=test.nodeContext.all />
 	</ul>
 </#if>
+
+<style>
+ .test-method-box {
+	display: flex; 
+	padding-bottom: 10px
+ }
+
+ .test-method-detail-box {
+	display: flex;
+ }
+
+ .test-method-name {
+    font-size:25px;
+	width: fit-content !important;
+ }
+
+ .test-status-override {
+	margin-right: 5px; 
+	font-size:25px;
+	margin-left: auto;
+ }
+
+ .category-list-override {
+	 margin-left: auto;
+ }
+
+ .node-desc-override {
+	 padding-top: 10px
+ }
+</style>
